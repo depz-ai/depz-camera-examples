@@ -1,0 +1,65 @@
+# DEPZ Camera Examples — hands-on labs for DEPZ stereo depth cameras
+
+Seven small, self-contained example projects for the [DEPZ](https://depz.ai)
+stereo depth cameras. Each one is a single Python file, runs in about ten
+minutes on a desk, and ends in a number you can check with a tape measure.
+
+Nothing here is a toy demo that only works in the video. Every lab was built
+against real hardware and then argued with a ruler, and the measured error —
+including where the camera reads short — is written down in the lab's README.
+
+## The labs
+
+Each lab reuses a piece of the one before it, so reading them in order costs
+you the least explaining.
+
+| # | Lab | What it does | Checked against a tape |
+|---|---|---|---|
+| 1 | [First depth map](labs/01_first_depth_map/) | Connect the camera, show a depth map, print the distance under the cursor | camera 2.94 m, tape 2.99 m |
+| 2 | [Virtual ruler](labs/02_virtual_ruler/) | Click two points, get the distance between them in metres | A4 sheet, short side: 0.297 m |
+| 3 | [Where the floor is](labs/03_floor_detection/) | Point cloud, floor plane, camera height above it; floor green, obstacles red | camera 0.871 m, tape 0.875–0.877 m |
+| 4 | [Box measure](labs/04_box_measure/) | Width × depth × height of a parcel, with a 3D wireframe drawn over the frame | 0.274 × 0.269 × 0.247 m vs a taped 0.27 × 0.27 × 0.25 |
+| 5 | [Any table is a touchscreen](labs/05_touch_table/) | Table plane plus fingertip: a touch detected to the millimetre | glasses case 33.6 mm, ruler 35 mm |
+| 6 | [Virtual fence](labs/06_virtual_fence/) | A guarded zone on the floor, an alarm, and a top-down view | ruler 78.3 cm, tape 80.0 cm |
+| 7 | [Depth keying](labs/07_depth_keying/) | Cut the background by distance — a green screen without the green screen | cut at 1.20 m, vanishes at 1.25–1.30 m |
+
+A "3D human skeleton" lab was planned and dropped: these lenses are too narrow
+to fit a standing person into a room-sized frame, and bone lengths are not
+something a tape measure can settle — so the lab could not keep the promise the
+rest of the series makes.
+
+## What you need
+
+- A DEPZ stereo depth camera, connected over USB. It is recognised
+  automatically, and its calibration is fetched from the cloud by serial number.
+- Python 3.11 or newer.
+- A tape measure. This is not a joke — it is half of every lab.
+
+## Install
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+```
+
+Then run any lab directly:
+
+```bash
+.venv/bin/python labs/01_first_depth_map/lab1.py
+```
+
+Lab 5 needs MediaPipe, which has to be installed separately — see
+[requirements.txt](requirements.txt) and the
+[lab's README](labs/05_touch_table/) for why.
+
+## Documentation
+
+- SDK documentation and downloads: <https://depz.ai/developers>
+- These examples on the website:
+  <https://depz.ai/developers/depth-cameras/example-projects>
+- The companion series for the DEPZ USB sensors:
+  [depz-sensor-examples](https://github.com/depz-ai/depz-sensor-examples)
+
+## Licence
+
+[MIT](LICENSE) — use the code in your own projects, commercial ones included.

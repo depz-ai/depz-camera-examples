@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+depz_sdk_cache/
+.idea/
+*.mkv
+captures/
+
+# Working notes for the maintainer — kept local, not part of the published examples
+CLAUDE.md
+PLAN.md
