@@ -1,4 +1,3 @@
-relf crhbyijns crkflsdftn&
 """Lab 5 — Turn any table into a touchscreen.
 
 Fits a plane to your table, tracks your fingertip, and registers a tap when the
