@@ -1,4 +1,4 @@
-# Lab 6 — A virtual fence on your floor
+# Example project 6 — A virtual fence on your floor
 
 **Goal:** draw a rectangle on the floor with two mouse clicks, and have the
 camera raise the alarm when anything steps into it. Plus a bird's eye plan of
@@ -14,7 +14,7 @@ and the intruder's footprint inside it.*
 ## What you need
 
 - Any DEPZ stereo camera on USB, mounted high enough to see the floor
-- The same packages as the earlier labs — no hand tracking here
+- The same packages as the earlier example projects — no hand tracking here
 
 ```bash
 pip install -r requirements.txt
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ## Run it
 
 ```bash
-python lab6.py
+python virtual_fence.py
 ```
 
 Wait for the floor to turn green, then click two points on the floor: those are
@@ -34,7 +34,7 @@ opposite corners of your zone. Walk into it, or put a box there.
 ## It does not look for people
 
 The obvious way to build this is to detect a person and check where they stand.
-This lab does not do that, and the reason is worth a paragraph.
+This example project does not do that, and the reason is worth a paragraph.
 
 A fence only needs to know **whether anything is in the air above the zone**.
 So the code takes every 3-D point, drops it straight down onto the floor plane,
@@ -53,7 +53,7 @@ Each of these came out of an evening of watching it fail:
    mask includes the walls and the sofa, so a person standing near them merges
    into one giant blob whose centre is over by the wall — and the alarm stays
    silent. Counting points in the zone has no such problem.
-2. **The plan needs real directions.** Lab 4's `basis()` returns any two
+2. **The plan needs real directions.** Example project 4's `basis()` returns any two
    perpendicular directions in the floor, which is fine for boxing in a parcel
    at an arbitrary angle. On a map it is not: the zone came out drawn to the
    left of the camera while it lay straight ahead. Here "forward" has to be the
@@ -73,7 +73,7 @@ Each of these came out of an evening of watching it fail:
 ## Check it with a tape
 
 The zone is measured on the floor, so the tape goes on the floor too. Lay a
-ruler down, click its two ends, and read the last number the lab prints:
+ruler down, click its two ends, and read the last number the example project prints:
 
 ```
 zone set: 0.78 x 0.05 m | corners 0.783 m apart (check this one with a tape)
@@ -86,7 +86,7 @@ zone set: 0.78 x 0.05 m | corners 0.783 m apart (check this one with a tape)
 | error | **−1.7 cm, or −2.1 %** |
 
 That is the same 2 % this camera reads short at this range everywhere else in
-the series — Lab 1 measures the same thing against a tape at three metres.
+the series — example project 1 measures the same thing against a tape at three metres.
 
 Note *which* number to check: the two sides of the zone are measured along the
 room's axes, so a ruler lying at an angle will split into two smaller numbers
@@ -128,5 +128,5 @@ within **0.00 px** — so if the zone looks odd, move the camera, not the code.
 
 ---
 
-Next: [Lab 7 — a green screen without the green screen](../07_depth_keying/)
+Next: [Example project 7 — a green screen without the green screen](../07_depth_keying/)
 cuts the background out by distance.

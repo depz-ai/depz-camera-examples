@@ -1,4 +1,4 @@
-# Lab 7 — A green screen without the green screen
+# Example project 7 — A green screen without the green screen
 
 **Goal:** cut the background out by **distance**. No cloth, no lighting rig, no
 chroma spill — and it works in front of a bookshelf, a kitchen or a moving
@@ -13,11 +13,11 @@ the author's.*
 ## What you need
 
 - Any DEPZ stereo camera on USB
-- The same packages as the earlier labs — no extra models here
+- The same packages as the earlier example projects — no extra models here
 
 ```bash
 pip install -r requirements.txt
-python lab7.py
+python depth_keying.py
 ```
 
 - `[` and `]` — move the cut nearer or further (it is printed in the header)
@@ -40,7 +40,7 @@ Set the cut to a round number and walk backwards past it.
 
 | | |
 |---|---|
-| cut set in the lab | **1.20 m** |
+| cut set in the example project | **1.20 m** |
 | where you actually vanish, by tape | **1.25 – 1.30 m** |
 
 Close enough for keying, and the few centimetres go the same way every time:
@@ -48,13 +48,13 @@ the camera reads slightly short, and the mask is deliberately fattened a pixel
 or two so hair does not look cut out with scissors. If you want the cut exactly
 where you say it is, measure that offset once and subtract it from `CUT_M`.
 
-Do not expect the same at four metres, though — Lab 1 shows the error growing
+Do not expect the same at four metres, though — example project 1 shows the error growing
 with the *square* of distance.
 
 ## The one line that saves the edges
 
-Left alone, this lab draws a glowing halo around your head. The reason is the
-same one that tripped the fence in Lab 6: the network fills in **every** pixel,
+Left alone, this example project draws a glowing halo around your head. The reason is the
+same one that tripped the fence in example project 6: the network fills in **every** pixel,
 so along your outline it invents something halfway between you and the wall.
 Those pixels are nearer than the wall and further than you, and a naive cut
 keeps them.
@@ -74,7 +74,7 @@ blur the edge by a few pixels so hair does not look cut out with scissors.
 
 ## Why the fast model here
 
-Every other lab in this series picks the quiet model and pays with frame rate,
+Every other example project in this series picks the quiet model and pays with frame rate,
 because they measure millimetres. This one does not measure anything — it
 composes video, and video wants frames. So it runs the default `lightstereo`
 at ~4.6 fps instead of the quiet model's 2.2.
@@ -86,7 +86,7 @@ the frame rate.
 ## Things to try
 
 - **Put it into a video call.** Pipe the output into a virtual camera
-  (`v4l2loopback` on Linux, OBS elsewhere) and the lab becomes a background
+  (`v4l2loopback` on Linux, OBS elsewhere) and the example project becomes a background
   filter that Zoom cannot tell from its own.
 - **Cut a slab, not a half-space.** Two thresholds instead of one — keep only
   what lies between 0.8 and 1.4 m — and everything in front of the subject
@@ -110,4 +110,4 @@ the frame rate.
 
 ---
 
-Back to [the lab index](../../README.md).
+Back to [the example project index](../../README.md).

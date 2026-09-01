@@ -1,4 +1,4 @@
-"""Lab 2 — A virtual ruler.
+"""Example project 2 — A virtual ruler.
 
 Click two points in the picture and read the distance between them in
 centimetres. Every pixel of the point cloud carries X, Y, Z in metres, so the
@@ -98,8 +98,8 @@ def main() -> None:
         if event == cv2.EVENT_LBUTTONDOWN:
             pick(x % w, y, w, h)     # click either half, same pixel either way
 
-    cv2.namedWindow("lab2")
-    cv2.setMouseCallback("lab2", on_mouse)
+    cv2.namedWindow("virtual_ruler")
+    cv2.setMouseCallback("virtual_ruler", on_mouse)
     try:
         while True:
             pkt = pipe.get(timeout=5.0)
@@ -108,7 +108,7 @@ def main() -> None:
                       " program is holding it?", pipe.last_error or "")
                 break
             follow(pkt.point_cloud)
-            cv2.imshow("lab2", compose(pkt))
+            cv2.imshow("virtual_ruler", compose(pkt))
             key = cv2.waitKey(1) & 0xFF
             if key in (ord("q"), 27):
                 break

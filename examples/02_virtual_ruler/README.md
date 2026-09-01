@@ -1,4 +1,4 @@
-# Lab 2 — A virtual ruler
+# Example project 2 — A virtual ruler
 
 **Goal:** click two points anywhere in the picture and read the distance
 between them in metres — then argue with a tape measure.
@@ -9,13 +9,13 @@ between them in metres — then argue with a tape measure.
 them. Right: the same two points on the depth map. The camera says the marks
 are 1.136 m apart.*
 
-> Lab 1 answered *how far is that*. This lab answers *how big is that* — and
+> Example project 1 answered *how far is that*. This example project answers *how big is that* — and
 > that is the difference between a curiosity and a tool.
 
 ## What you need
 
 - Any DEPZ stereo camera (Varius / Minima / Clarity) on USB
-- Python 3.11+ and the same packages as Lab 1:
+- Python 3.11+ and the same packages as example project 1:
 
 ```bash
 pip install -r requirements.txt   # depz-camera-sdk, openvino, numpy, opencv-python
@@ -27,7 +27,7 @@ pip install -r requirements.txt   # depz-camera-sdk, openvino, numpy, opencv-pyt
 ## Run it
 
 ```bash
-python lab2.py
+python virtual_ruler.py
 ```
 
 The first run downloads a ~21 MB neural network. Click one point, click
@@ -79,15 +79,15 @@ photograph than inside a floating cloud of dots.
 
 One consequence worth knowing: you can only measure **surfaces the camera can
 see**. Clicking the front and the back of a box will not give you its depth,
-because the back is not in the picture. Measuring a whole box comes in Lab 4,
+because the back is not in the picture. Measuring a whole box comes in example project 4,
 and it works differently.
 
-## Why this lab changes the model
+## Why this example project changes the model
 
-Lab 1 used the SDK's default network. A ruler needs a steadier one. Same room,
+Example project 1 used the SDK's default network. A ruler needs a steadier one. Same room,
 same static scene, targets about 2.9 m out, 150 frames each:
 
-| | `lightstereo` (Lab 1 default) | `lite-any-stereo` (this lab) |
+| | `lightstereo` (example project 1 default) | `lite-any-stereo` (this example project) |
 |---|---|---|
 | wobble of one point's range | 5.31 cm | **0.96 cm** |
 | a measurement, single frame | 4.00 cm (12.1 %) | **0.26 cm (1.2 %)** |
@@ -115,23 +115,23 @@ size of what you measure, so the *relative* error shrinks as the object grows
 
 So a sheet of A4 is close to the hardest case, and a doorway is easy.
 
-**Why the averaging is over time again.** Lab 1 showed that neighbouring pixels
+**Why the averaging is over time again.** Example project 1 showed that neighbouring pixels
 flicker *together*, so averaging over a patch buys nothing. There is a twist
 here: that togetherness only reaches about 15 pixels. Two points that close
 still wobble in step (correlation +0.8) and their errors partly cancel when you
 subtract them — but at 40 pixels apart the correlation is gone and each point
-wobbles on its own. Which is why the fix is the same as in Lab 1: median each
-point over consecutive frames (`SMOOTH_N` in [lab2.py](lab2.py)).
+wobbles on its own. Which is why the fix is the same as in example project 1: median each
+point over consecutive frames (`SMOOTH_N` in [virtual_ruler.py](virtual_ruler.py)).
 
 ## Check it with a tape measure
 
-This is the point of the whole lab, so do it properly:
+This is the point of the whole example project, so do it properly:
 
 1. Tape a sheet of A4 to a wall, about 1.5 m from the camera.
 2. Click its two top corners. Wait a second and a half for the reading to
    settle.
 3. The answer should land near 0.297 m.
-4. Now do the same at 3 m and at 4 m, and watch the error grow — Lab 1
+4. Now do the same at 3 m and at 4 m, and watch the error grow — example project 1
    explains why it grows with the *square* of the distance.
 
 Measure **across** your view rather than into it: two points side by side are
@@ -163,5 +163,5 @@ directly on the range error, which is the big one.
 - The window feels sluggish — it is: ~2 fps is this model's price, and the
   section above explains why it is worth paying here.
 
-**Next:** [Lab 3 — find the floor](../03_floor_detection/): fit a plane to the
+**Next:** [Example project 3 — find the floor](../03_floor_detection/): fit a plane to the
 point cloud, paint the floor green and everything standing on it red.

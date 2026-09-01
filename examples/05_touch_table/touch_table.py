@@ -1,4 +1,4 @@
-"""Lab 5 — Turn any table into a touchscreen.
+"""Example project 5 — Turn any table into a touchscreen.
 
 Fits a plane to your table, tracks your fingertip, and registers a tap when the
 finger comes within a few millimetres of the surface — anywhere on the table.
@@ -22,7 +22,7 @@ from depz_camera_sdk import DepthPipeline, set_cache_dir
 set_cache_dir(Path.home() / ".cache" / "depz")
 
 MODEL = ("lite-any-stereo", "v2-s-480x288")   # 3.5 fps, 1 mm of noise up close
-HAND_TASK = Path.home() / ".cache" / "depz-labs" / "hand_landmarker.task"
+HAND_TASK = Path.home() / ".cache" / "depz-examples" / "hand_landmarker.task"
 HAND_URL = ("https://storage.googleapis.com/mediapipe-models/hand_landmarker"
             "/hand_landmarker/float16/latest/hand_landmarker.task")
 TIP = 8                # index fingertip in MediaPipe's 21-point hand
@@ -41,7 +41,7 @@ SCALE = 2
 def find_plane(pts: np.ndarray):
     """RANSAC: guess planes from random point triples, keep the most popular.
 
-    Same trick Lab 3 used for the floor — toss a sheet of cardboard at the
+    Same trick example project 3 used for the floor — toss a sheet of cardboard at the
     cloud a few hundred times and keep the throw that touched the most points.
     """
     tri = pts[np.random.randint(0, len(pts), (TRIES, 3))]
@@ -127,7 +127,7 @@ def main() -> None:
         running_mode=vision.RunningMode.VIDEO, num_hands=1))
     pipe = DepthPipeline(enable_rectified=True, enable_cloud=True, inference=MODEL)
     pipe.start()
-    cv2.namedWindow("lab5")
+    cv2.namedWindow("touch_table")
     base, taps, was_down, frame_no, plane = 0.0, 0, False, 0, None
     try:
         while True:
@@ -166,7 +166,7 @@ def main() -> None:
                 print(f"tap {taps} at {mm:+.0f} mm")
             was_down = touching
 
-            cv2.imshow("lab5", compose(pkt, plane, px, mm, touching, taps))
+            cv2.imshow("touch_table", compose(pkt, plane, px, mm, touching, taps))
             key = cv2.waitKey(1) & 0xFF
             if key in (ord("q"), 27):
                 break

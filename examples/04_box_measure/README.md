@@ -1,4 +1,4 @@
-# Lab 4 — Measure a box
+# Example project 4 — Measure a box
 
 **Goal:** put a parcel on the floor, hover the mouse over it, and read its
 width, depth and height. No clicking, no markers, no ruler — and then check
@@ -10,8 +10,8 @@ every one of the three numbers with a ruler.
 The wireframe is not a drawing over the picture — its eight corners are real
 points in space, projected back into the frame.*
 
-> This is Labs 2 and 3 collected in one place. Lab 3 found the floor; that
-> floor is what makes "height" mean anything. Lab 2 measured between two
+> This is example projects 2 and 3 collected in one place. Example project 3 found the floor; that
+> floor is what makes "height" mean anything. Example project 2 measured between two
 > points; here the points come from the shape itself instead of from your
 > mouse.
 
@@ -29,14 +29,14 @@ pip install -r requirements.txt   # depz-camera-sdk, openvino, numpy, opencv-pyt
   depth are read off the lid, so the lid has to be visible. From floor level
   you see two sides and no top, and the far edge of the parcel is anybody's
   guess.
-- **Space around the box.** The lab grabs one connected lump of stuff standing
+- **Space around the box.** The example project grabs one connected lump of stuff standing
   on the floor. A parcel touching the sofa is, as far as the geometry is
   concerned, part of the sofa.
 
 ## Run it
 
 ```bash
-python lab4.py
+python box_measure.py
 ```
 
 Point the camera down until the floor turns up, move the mouse onto the box,
@@ -44,7 +44,7 @@ wait a second for the numbers to settle. `s` saves a screenshot, `q` quits.
 
 ## How it works, in four steps
 
-**1. Find the floor.** Exactly the RANSAC vote from Lab 3, copied over
+**1. Find the floor.** Exactly the RANSAC vote from example project 3, copied over
 unchanged: a few hundred random planes, the one that most points agree with
 wins, with the same two guards that stop a wall or a table from winning.
 
@@ -107,13 +107,13 @@ The numbers from the run in the screenshot, 16 frames, box about 1.3 m away:
 | | width | depth | height |
 |---|---|---|---|
 | tape measure | 27.0 cm | 27.0 cm | 25.0 cm |
-| this lab | **27.3 cm** | **27.0 cm** | **24.7 cm** |
+| this example project | **27.3 cm** | **27.0 cm** | **24.7 cm** |
 | off by | +0.3 | 0.0 | −0.3 |
 | frame-to-frame wobble | 0.1 | 0.1 | 0.0 |
 
 Every side within three millimetres, and the reading holds still to one.
 
-One caveat about a square parcel like this one: the lab calls the longer side
+One caveat about a square parcel like this one: the example project calls the longer side
 the width and the shorter one the depth. When the two are genuinely equal, that
 choice alone biases the width up and the depth down, because we are picking the
 larger of two noisy numbers every frame. On an oblong box the effect vanishes.
@@ -130,20 +130,20 @@ Two things to expect if your own numbers come out a little large:
 - **Turn the box 45°.** The numbers should not change: `minAreaRect` is free to
   tilt, so nothing here assumes the parcel faces the camera.
 - **Measure something round.** A bucket gets a square footprint the size of its
-  diameter — correct, and a good reminder that the lab reports a *bounding box*,
+  diameter — correct, and a good reminder that the example project reports a *bounding box*,
   not a shape.
 - **Stack two boxes.** One lump, one measurement: the height is now the top of
   the stack. That is a feature if you are loading a pallet and a bug if you
   wanted the top box.
 - **Move the camera to floor level.** The lid disappears and the depth
-  collapses — the failure this lab warns about, worth seeing once.
+  collapses — the failure this example project warns about, worth seeing once.
 - **Print the volume.** Three numbers multiplied together is a shipping
   estimate; that is most of what a parcel kiosk does.
 
 ## If something goes wrong
 
 - **Nothing happens when I move the camera** — the crosshair stays where you
-  left it while the parcel slides out from under it. The lab measures the lump
+  left it while the parcel slides out from under it. The example project measures the lump
   *under the cursor* and nothing else, so move the mouse back onto the box.
 - **The measurement is enormous (metres)** — the crosshair is on the sofa, or on
   something touching it. Whatever lump you point at is what gets measured.
@@ -157,9 +157,9 @@ Two things to expect if your own numbers come out a little large:
 - **`no frames for 5 s`** — the camera stopped delivering: unplugged, or
   another program grabbed it.
 - **`HTTP Error 503` or `429` on the very first run** — the model download hit
-  a busy server. Every lab pins one shared cache (`~/.cache/depz`); wait a
+  a busy server. Every example project pins one shared cache (`~/.cache/depz`); wait a
   minute and start again.
 
-**Next:** [Lab 5 — any table is a touchscreen](../05_touch_table/): the same
-plane-finding trick as Lab 3, but tight enough to tell a fingertip resting on a
+**Next:** [Example project 5 — any table is a touchscreen](../05_touch_table/): the same
+plane-finding trick as example project 3, but tight enough to tell a fingertip resting on a
 table from one hovering a few millimetres above it.

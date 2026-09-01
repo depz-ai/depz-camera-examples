@@ -1,7 +1,7 @@
-"""Lab 4 — Measure a box.
+"""Example project 4 — Measure a box.
 
 Put a parcel on the floor, point the camera down at it, hover over it, and read
-its width, depth and height in metres. Labs 2 and 3 in one: the floor gives a
+its width, depth and height in metres. Example projects 2 and 3 in one: the floor gives a
 reference surface, the point cloud gives the size, nothing is clicked.
 Keys: s = save a screenshot, q or Esc = quit.
 """
@@ -18,7 +18,7 @@ from depz_camera_sdk import DepthPipeline, set_cache_dir
 # running from a different folder re-downloads them. Pin one shared cache.
 set_cache_dir(Path.home() / ".cache" / "depz")
 
-MODEL = ("lite-any-stereo", "v2-s-640x384")   # the steady one, as in Labs 2-3
+MODEL = ("lite-any-stereo", "v2-s-640x384")   # the steady one, as in example projects 2-3
 TRIES, SAMPLE = 600, 4000   # RANSAC: plane guesses per frame, points per vote
 TOL = 0.02                  # a point this close to the plane counts as floor
 MAX_TILT, MIN_DROP = 60, 0.30       # guards that keep walls and tables out
@@ -174,8 +174,8 @@ def main() -> None:
                          inference=MODEL)
     pipe.start()
     proj = np.asarray(pipe.active_calibration.P_left_canvas, dtype=np.float64)
-    cv2.namedWindow("lab4")
-    cv2.setMouseCallback("lab4", on_mouse)
+    cv2.namedWindow("box_measure")
+    cv2.setMouseCallback("box_measure", on_mouse)
     try:
         while True:
             pkt = pipe.get(timeout=5.0)
@@ -197,7 +197,7 @@ def main() -> None:
                 sel = pick_object(heights, valid, cur)
                 if sel is not None:
                     size, rect = measure(cloud, heights, sel, plane)
-            cv2.imshow("lab4", compose(pkt, plane, sel, size, rect, proj, cursor))
+            cv2.imshow("box_measure", compose(pkt, plane, sel, size, rect, proj, cursor))
             key = cv2.waitKey(1) & 0xFF
             if key in (ord("q"), 27):
                 break

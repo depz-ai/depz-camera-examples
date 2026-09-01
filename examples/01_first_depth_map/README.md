@@ -1,4 +1,4 @@
-# Lab 1 — Your first depth map
+# Example project 1 — Your first depth map
 
 **Goal:** plug in a DEPZ stereo camera and, in under ten minutes, have a live
 window where every pixel knows how far away it is — with the distance in
@@ -31,7 +31,7 @@ factory calibration is fetched automatically on first use.
 ## Run it
 
 ```bash
-python lab1.py
+python first_depth_map.py
 ```
 
 The first run downloads a ~13 MB neural network; after that the pipeline
@@ -53,7 +53,7 @@ print(pkt.depth[128, 200])   # metres at pixel (row 128, col 200)
 `pkt.depth` is a plain NumPy array of `float32` metres, aligned
 pixel-for-pixel with `pkt.rectified_left`. Both eyes come out in **BGR**, the
 order OpenCV already expects — pass them to `cv2` as they are, no `cvtColor`.
-Everything else in [lab1.py](lab1.py) (~100 lines) is drawing: a colormap for
+Everything else in [first_depth_map.py](first_depth_map.py) (~100 lines) is drawing: a colormap for
 the depth image, a mouse callback for the crosshair, and the nine-frame
 median described below.
 
@@ -64,7 +64,7 @@ images (straightens them so matching points sit on the same row), a neural
 network finds, for every pixel, how far it shifted between the eyes
 (the *disparity*), and the factory calibration converts that shift to
 metres. You get the result as `pkt.depth`; the raw disparity and a 3D point
-cloud are one constructor flag away — we will use them in the next labs.
+cloud are one constructor flag away — we will use them in the next example projects.
 
 ## Things to try
 
@@ -83,7 +83,7 @@ cloud are one constructor flag away — we will use them in the next labs.
 
 Read a single pixel of a single frame and the distance jitters — at three
 metres it swings by a good 20 cm. That is not a bug, and it is worth
-understanding before Lab 2 asks you to measure things.
+understanding before example project 2 asks you to measure things.
 
 The camera does not measure metres. It measures the disparity described above —
 a shift in pixels — and metres come out of a division:
@@ -110,7 +110,7 @@ you look. **One pixel of disparity is worth:**
 
 The error grows with the *square* of distance. That single table explains most
 of what feels flaky about stereo depth, and it is why every serious
-measurement in later labs happens as close to the subject as the task allows.
+measurement in later example projects happens as close to the subject as the task allows.
 
 **The fix is averaging over time, not over space.** The tempting move —
 median over a 5×5 patch of neighbouring pixels — does nothing at all here
@@ -121,12 +121,12 @@ frames does work:
 | reading | σ | spread |
 |---|---|---|
 | one frame | 4.7 cm | 27 cm |
-| median of last 9 frames (what `lab1.py` does) | 2.0 cm | 8 cm |
+| median of last 9 frames (what `first_depth_map.py` does) | 2.0 cm | 8 cm |
 | median of last 30 frames | 0.8 cm | 3 cm |
 
 Nine frames is a third of a second — no perceptible lag, and the number holds
 still enough to argue with a tape measure. That is `depth_at()` in
-[lab1.py](lab1.py); raise `SMOOTH_N` if you want it steadier and do not mind
+[first_depth_map.py](first_depth_map.py); raise `SMOOTH_N` if you want it steadier and do not mind
 the delay.
 
 Reproduce all of it yourself: point the camera at a flat wall, log
@@ -146,7 +146,7 @@ completely different matchers:
 
 | matcher | distance | spread of a single frame |
 |---|---|---|
-| `lightstereo` — the default, what this lab runs | 2.914 m | 5.8 cm |
+| `lightstereo` — the default, what this example project runs | 2.914 m | 5.8 cm |
 | `lite-any-stereo v2-s-640x384` | 2.892 m | 0.8 cm |
 | `sgbm` — classical, no neural network at all | 2.895 m | 1.4 cm |
 
@@ -162,15 +162,15 @@ disparity is worth 23 cm, so two thirds of one costs 8 cm — the entire
 discrepancy, from an error you could never see by eye. The same 0.65 px at
 half a metre would cost 4 mm.
 
-Two things follow, and they shape every lab after this one:
+Two things follow, and they shape every example project after this one:
 
 - **Measure close when the task allows it.** The error grows with the square
   of distance; nothing else you can do buys as much accuracy as stepping
   closer.
 - **Trust the tape, not the screenshot.** Your camera is a different unit with
-  its own factory calibration. Run this lab, point it at something you can
+  its own factory calibration. Run this example project, point it at something you can
   reach with a tape measure, and find out what *your* camera's offset is. Every
-  lab in this series ends with that same comparison.
+  example project in this series ends with that same comparison.
 
 Switch matchers yourself with one argument:
 
@@ -181,7 +181,7 @@ DepthPipeline(enable_rectified=True, inference=("sgbm", "360x640"))
 Note what the table says about `sgbm`: no neural network, four times faster
 than the default, and steadier at this particular spot. The trade-off does not
 show up here — it shows up as holes in the map where there is no texture to
-match. Lab 3 comes back to that.
+match. Example project 3 comes back to that.
 
 ## If something goes wrong
 
@@ -193,5 +193,5 @@ match. Lab 3 comes back to that.
 - Another program has the camera open — the pipeline needs exclusive access
   to `/dev/video*`; close the DEPZ viewer first.
 
-**Next:** [Lab 2 — a virtual tape measure](../02_virtual_ruler/): click two
+**Next:** [Example project 2 — a virtual tape measure](../02_virtual_ruler/): click two
 points, get centimetres between them.

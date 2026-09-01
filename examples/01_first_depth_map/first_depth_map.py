@@ -1,4 +1,4 @@
-"""Lab 1 — Your first depth map.
+"""Example project 1 — Your first depth map.
 
 Opens the first connected DEPZ camera, shows the rectified left eye next to
 a colorized depth map, and prints the distance (in metres) under the mouse
@@ -85,8 +85,8 @@ def main() -> None:
     print("Starting the pipeline (the first run downloads a ~13 MB model)...")
     pipe = DepthPipeline(enable_rectified=True)
     pipe.start()
-    cv2.namedWindow("lab1")
-    cv2.setMouseCallback("lab1", on_mouse)
+    cv2.namedWindow("first_depth_map")
+    cv2.setMouseCallback("first_depth_map", on_mouse)
     try:
         while True:
             pkt = pipe.get(timeout=5.0)
@@ -94,7 +94,7 @@ def main() -> None:
                 print("no frames for 5 s — camera unplugged, or another"
                       " program is holding it?", pipe.last_error or "")
                 break
-            cv2.imshow("lab1", compose(pkt, cursor))
+            cv2.imshow("first_depth_map", compose(pkt, cursor))
             key = cv2.waitKey(1) & 0xFF
             if key in (ord("q"), 27):
                 break

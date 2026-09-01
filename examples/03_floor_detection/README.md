@@ -1,4 +1,4 @@
-# Lab 3 — Find the floor
+# Example project 3 — Find the floor
 
 **Goal:** let the camera work out where the floor is, paint it green, paint
 everything standing on it red — and tell you how high the camera itself is
@@ -12,7 +12,7 @@ down, and that the floor fills 29 % of the view. The crosshair sits on a book
 lying on the floor: 0.038 m up. The book is 34 mm thick by ruler, and the tape
 put the camera at 0.875–0.877 m.*
 
-> Labs 1 and 2 read individual points. This one asks a question about the
+> Example projects 1 and 2 read individual points. This one asks a question about the
 > **whole scene at once**, and gets back something no single point can give
 > you: a reference surface that every other height is measured against.
 
@@ -31,7 +31,7 @@ pip install -r requirements.txt   # depz-camera-sdk, openvino, numpy, opencv-pyt
 ## Run it
 
 ```bash
-python lab3.py
+python floor_detection.py
 ```
 
 Green is the floor, red is anything at least 3 cm above it. The label shows the
@@ -65,7 +65,7 @@ Two guards keep it honest, and without them it picks the wrong plane:
   take the prize.
 
 Once the winner is known, we refit it properly on every point it touched (that
-is the `np.linalg.svd` line in [lab3.py](lab3.py)) — the random three points
+is the `np.linalg.svd` line in [floor_detection.py](floor_detection.py)) — the random three points
 were only ever a way to find the floor, not to describe it.
 
 Six hundred throws is already enough. Raising it to six thousand, and the
@@ -91,7 +91,7 @@ in every frame.
 
 ## Which model, and why it is not the fast one
 
-This lab runs `lite-any-stereo v2-s-640x384`, the same network as Lab 2, and
+This example project runs `lite-any-stereo v2-s-640x384`, the same network as example project 2, and
 pays for it in frame rate. Measured on one still scene, camera about 0.88 m up,
 20 frames per model, with a tape measure reading **0.875–0.877 m**:
 
@@ -116,9 +116,9 @@ correctness. Treat the reported height as good to a couple of centimetres.
 
 Not the way you would expect, and it is worth being straight about it.
 
-Lab 1 measured a single point's range wobbling by about 5 cm at three metres,
+Example project 1 measured a single point's range wobbling by about 5 cm at three metres,
 and showed that averaging over neighbouring pixels does not help, because
-neighbours flicker together. Lab 2 pinned down how far that togetherness
+neighbours flicker together. Example project 2 pinned down how far that togetherness
 reaches: about 15 pixels. A plane fitted on a hundred thousand points spread
 across the whole frame is well beyond that radius, so the obvious expectation
 is that all that noise cancels.
@@ -165,7 +165,7 @@ step near 0.17 m.
 - **Tilt the camera.** The tilt angle changes, the height does not. Nothing was
   hard-coded about which way is down.
 - **Put a box on the floor.** It turns red immediately, and the crosshair reads
-  its height. That is Lab 4 knocking.
+  its height. That is example project 4 knocking.
 - **Make an obstacle map.** Paint red only what sits between 5 cm and 50 cm
   above the floor: that is exactly what a robot vacuum needs to know, and the
   walls stop drowning the picture.
@@ -189,12 +189,12 @@ step near 0.17 m.
   Real floors are not perfectly flat, and neither is the depth map at four
   metres. Widen it to 3 cm.
 - **`no frames for 5 s`** — the camera stopped delivering: unplugged, or
-  another program grabbed it. The lab says so and exits instead of hanging.
+  another program grabbed it. The example project says so and exits instead of hanging.
 - Another program has the camera open — close the DEPZ viewer first.
 - **`HTTP Error 503` or `429` on the very first run** — that is the model
-  download hitting a busy server, not a bug in the lab. Every lab pins one
+  download hitting a busy server, not a bug in the example project. Every example project pins one
   shared cache (`~/.cache/depz`), so once a model is there it is never fetched
   again; wait a minute and start again.
 
-**Next:** [Lab 4 — measure a box](../04_box_measure/): with a ruler and a floor,
+**Next:** [Example project 4 — measure a box](../04_box_measure/): with a ruler and a floor,
 the width, depth and height of a parcel in centimetres.

@@ -1,4 +1,4 @@
-"""Lab 7 — A green screen without the green screen.
+"""Example project 7 — A green screen without the green screen.
 
 Keeps everything closer than a distance you choose and replaces the rest.
 No cloth, no lighting rig, no chroma spill: the cut is made on depth, so it
@@ -74,7 +74,7 @@ def compose(pkt, cut: float, mode: int, show_mask: bool) -> np.ndarray:
 def main() -> None:
     pipe = DepthPipeline(enable_rectified=True, inference=MODEL)
     pipe.start()
-    cv2.namedWindow("lab7")
+    cv2.namedWindow("depth_keying")
     cut, mode, show_mask = CUT_M, 0, False
     try:
         while True:
@@ -83,7 +83,7 @@ def main() -> None:
                 print("no frames for 5 s — camera unplugged, or another program"
                       " is holding it?", pipe.last_error or "")
                 break
-            cv2.imshow("lab7", compose(pkt, cut, mode, show_mask))
+            cv2.imshow("depth_keying", compose(pkt, cut, mode, show_mask))
             key = cv2.waitKey(1) & 0xFF
             if key in (ord("q"), 27):
                 break

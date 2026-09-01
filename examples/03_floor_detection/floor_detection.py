@@ -1,4 +1,4 @@
-"""Lab 3 — Find the floor.
+"""Example project 3 — Find the floor.
 
 Fits a plane to the point cloud, paints the floor green and everything
 standing on it red, and prints how high the camera is above that floor.
@@ -21,7 +21,7 @@ set_cache_dir(Path.home() / ".cache" / "depz")
 # The default model is faster but its floor plane wobbles by 24 mm from frame
 # to frame; this one wobbles by 8 mm and lands closer to the tape measure
 # (870 mm vs a taped 876). A height you can check with a ruler is the whole
-# point of this lab, so it pays 5 -> 2.3 fps for it. See the README.
+# point of this example project, so it pays 5 -> 2.3 fps for it. See the README.
 MODEL = ("lite-any-stereo", "v2-s-640x384")
 
 TRIES = 600        # random plane guesses per frame
@@ -115,8 +115,8 @@ def main() -> None:
     pipe = DepthPipeline(enable_rectified=True, enable_cloud=True,
                          inference=MODEL)
     pipe.start()
-    cv2.namedWindow("lab3")
-    cv2.setMouseCallback("lab3", on_mouse)
+    cv2.namedWindow("floor_detection")
+    cv2.setMouseCallback("floor_detection", on_mouse)
     try:
         while True:
             pkt = pipe.get(timeout=5.0)
@@ -130,7 +130,7 @@ def main() -> None:
             plane = None
             if len(pts) > SAMPLE:
                 plane = find_floor(pts[np.random.randint(0, len(pts), SAMPLE)])
-            cv2.imshow("lab3", compose(pkt, plane, cursor))
+            cv2.imshow("floor_detection", compose(pkt, plane, cursor))
             key = cv2.waitKey(1) & 0xFF
             if key in (ord("q"), 27):
                 break

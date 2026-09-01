@@ -1,4 +1,4 @@
-# Lab 5 — Turn any table into a touchscreen
+# Example project 5 — Turn any table into a touchscreen
 
 **Goal:** point the camera at an ordinary table, and have it tell you — to the
 millimetre — how far your fingertip is above the surface. Close enough, and
@@ -8,7 +8,7 @@ that is a tap.
 
 *The table is tinted green — that is the plane the camera fitted to it. The
 yellow ring is the fingertip, the lamp in the corner lights up on contact, and
-ten taps have been logged. The header reads −3 mm: the lab has been calibrated,
+ten taps have been logged. The header reads −3 mm: the example project has been calibrated,
 so a touching finger sits at zero give or take a couple of millimetres.*
 
 ## What you need
@@ -24,7 +24,7 @@ pip install absl-py flatbuffers sounddevice certifi matplotlib
 
 MediaPipe needs the `--no-deps` line: left to itself it pulls in a second
 OpenCV package (`opencv-contrib-python`, a major version ahead), which
-silently replaces the one the earlier labs are tested against. The three
+silently replaces the one the earlier example projects are tested against. The three
 packages on the last line are what it actually needs to import.
 
 The hand model (7.8 MB) downloads itself on the first run, the way the SDK
@@ -33,7 +33,7 @@ fetches its own models.
 ## Run it
 
 ```bash
-python lab5.py
+python touch_table.py
 ```
 
 Show your hand. The header prints the height of your index fingertip above the
@@ -44,7 +44,7 @@ table; touch the surface anywhere and the lamp lights up.
 
 ## Why a resting finger reads 10 mm, not 0
 
-Start the lab, touch the table, and the header will say something like
+Start the example project, touch the table, and the header will say something like
 `+12 mm` while insisting the tap counted. Nothing is broken. The camera cannot
 see the point where skin meets wood; it sees the **top of your fingertip**.
 That is about a centimetre above the table, and it stays about a centimetre no
@@ -56,7 +56,7 @@ reading drops to zero.
 
 ## How it works
 
-1. **Fit a plane to the table.** The same RANSAC trick Lab 3 used on the floor:
+1. **Fit a plane to the table.** The same RANSAC trick example project 3 used on the floor:
    guess a plane from three random points, count how many points land on it,
    keep the winner. Only points nearer than 1.2 m take part — beyond that is
    the room, not the table.
@@ -108,8 +108,8 @@ tap threshold, so the lamp would fire on noise alone. The smallest variant is
 faster still and almost as bad. The 480×288 map is the sweet spot: same
 millimetre of noise as the big map, one and a half times the frame rate.
 
-And because the noise is already a millimetre, this lab does **no averaging
-over time at all** — unusual for this series, where every other lab medians
+And because the noise is already a millimetre, this example project does **no averaging
+over time at all** — unusual for this series, where every other example project medians
 over frames. A three-frame median here added 1.2 s of lag and made taps feel
 like they registered "every other time". Averaging buys nothing when the
 signal is already still; it only costs response.
@@ -120,7 +120,7 @@ signal is already still; it only costs response.
   to press properly; at 40 mm the table reacts to a hovering hand.
 - **Draw buttons on paper.** Put a sheet with drawn keys on the table: the
   plane fit does not care, and now the paper is a keyboard.
-- **Tap through a book.** The lab measures height above the plane, so resting
+- **Tap through a book.** The example project measures height above the plane, so resting
   your finger on a book gives you the book's thickness — a ruler in reverse.
 - **Watch it fail on a mirror.** Glass and gloss give stereo nothing to match;
   the plane search will wander. Matte surfaces work best.
@@ -139,5 +139,5 @@ signal is already still; it only costs response.
 
 ---
 
-Next: [Lab 6 — a virtual fence](../06_virtual_fence/) puts a guarded zone on
+Next: [Example project 6 — a virtual fence](../06_virtual_fence/) puts a guarded zone on
 the floor and raises the alarm when something steps into it.

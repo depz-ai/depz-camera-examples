@@ -1,6 +1,6 @@
-"""Lab 6 — A virtual fence on your floor.
+"""Example project 6 — A virtual fence on your floor.
 
-Finds the floor (Lab 3), finds whatever stands on it (Lab 4), and raises an
+Finds the floor (example project 3), finds whatever stands on it (example project 4), and raises an
 alarm when something steps into a zone you drew. The right half is a bird's eye
 plan of the room with a one-metre grid, so you can see the zone from above.
 
@@ -32,7 +32,7 @@ SCALE = 2
 
 
 def find_floor(pts: np.ndarray):
-    """RANSAC plane fit — the same floor finder as Lab 3."""
+    """RANSAC plane fit — the same floor finder as example project 3."""
     tri = pts[np.random.randint(0, len(pts), (TRIES, 3))]
     n = np.cross(tri[:, 1] - tri[:, 0], tri[:, 2] - tri[:, 0])
     ln = np.linalg.norm(n, axis=1)
@@ -56,7 +56,7 @@ def find_floor(pts: np.ndarray):
 def basis(normal: np.ndarray):
     """Right and forward, as they lie *on* the floor.
 
-    Lab 4 could take any two directions in the plane — a box is boxed in at
+    Example project 4 could take any two directions in the plane — a box is boxed in at
     whatever angle it sits. A map cannot: "forward" has to be the way the
     camera looks, or the plan comes out rotated. So take the camera's viewing
     axis, flatten it onto the floor, and cross it with the floor normal.
@@ -87,7 +87,7 @@ def steady_point(cloud, valid, x: int, y: int, win: int = 3):
     """The 3-D point under a click, medianed over its neighbours.
 
     One pixel is a noisy way to place a corner: at three metres a single pixel
-    of disparity is worth centimetres (Lab 1 measured exactly that). The median
+    of disparity is worth centimetres (example project 1 measured exactly that). The median
     of a small patch of *floor* costs nothing and steadies the corner.
     """
     h, w = cloud.shape[:2]
@@ -122,7 +122,7 @@ def margin_m(pt, zone) -> float:
 def zone_pixels(zone, plane, proj):
     """The four corners of the zone, drawn where they really lie on the floor.
 
-    Same projection Lab 4 uses for the parcel's wireframe: build the corner in
+    Same projection example project 4 uses for the parcel's wireframe: build the corner in
     metres, push it through the camera matrix, divide by depth.
     """
     normal, offset = plane
@@ -212,8 +212,8 @@ def main() -> None:
     pipe = DepthPipeline(enable_rectified=True, enable_cloud=True, inference=MODEL)
     pipe.start()
     proj = np.asarray(pipe.active_calibration.P_left_canvas, dtype=np.float64)
-    cv2.namedWindow("lab6")
-    cv2.setMouseCallback("lab6", on_mouse)
+    cv2.namedWindow("virtual_fence")
+    cv2.setMouseCallback("virtual_fence", on_mouse)
     try:
         while True:
             pkt = pipe.get(timeout=5.0)
@@ -271,7 +271,7 @@ def main() -> None:
                            f"INTRUSION: {int(lumps[1].sum())} points inside" if alarm
                            else "clear"]
 
-            cv2.imshow("lab6", compose(pkt, plane, lumps, zone, marks, alarm, msg, proj, clicks))
+            cv2.imshow("virtual_fence", compose(pkt, plane, lumps, zone, marks, alarm, msg, proj, clicks))
             key = cv2.waitKey(1) & 0xFF
             if key in (ord("q"), 27):
                 break

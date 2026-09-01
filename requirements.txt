@@ -11,8 +11,8 @@ opencv-python
 openvino
 onnxruntime
 
-# Lab 5 (hand tracking): install MediaPipe SEPARATELY and with --no-deps. As a
+# Example project 5 (hand tracking): install MediaPipe SEPARATELY and with --no-deps. As a
 # dependency it drags in the next major of opencv-contrib-python, which overwrites
-# the opencv-python above and can break Labs 1-4. See labs/05_touch_table/README.md:
+# the opencv-python above and can break example projects 1-4. See examples/05_touch_table/README.md:
 #     pip install --no-deps mediapipe
 #     pip install absl-py flatbuffers sounddevice certifi matplotlib
