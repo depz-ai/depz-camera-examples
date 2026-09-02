@@ -6,7 +6,9 @@ minutes on a desk, and ends in a number you can check with a tape measure.
 
 Nothing here is a toy demo that only works in the video. Every example project was built
 against real hardware and then argued with a ruler, and the measured error —
-including where the camera reads short — is written down in the example project's README.
+including where the camera reads short — is written down in each project’s full article on depz.ai.
+
+**Web versions with interactive demos and the full write-ups:** https://depz.ai/developers/depth-cameras/example-projects
 
 ## The example projects
 
