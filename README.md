@@ -37,8 +37,9 @@ rest of the series makes.
 - Python 3.10 or newer.
 - Windows 10+ (x64), Linux (x86_64 or ARM64, glibc 2.28+) or macOS 14+ on
   Apple Silicon. Intel Macs are not supported. The SDK itself also runs on
-  Windows 11 ARM64, but these examples do not: they open their windows through
-  OpenCV, and PyPI has no `opencv-python` wheel for that platform.
+  Windows 11 ARM64, but these examples have not been tried there:
+  `requirements.txt` asks for `opencv-python` (the examples draw their
+  windows with it), and PyPI has no wheel of it for that platform.
 - A tape measure. This is not a joke — it is half of every example project.
 
 ## Install
