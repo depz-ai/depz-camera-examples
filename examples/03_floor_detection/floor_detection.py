@@ -14,7 +14,7 @@ import numpy as np
 
 from depz_camera_sdk import DepthPipeline
 
-# The lightstereo of example project 1 is faster but its floor plane wobbles by 24 mm from frame
+# The small lightstereo model is faster but its floor plane wobbles by 24 mm from frame
 # to frame; this one wobbles by 8 mm and lands closer to the tape measure
 # (870 mm vs a taped 876). A height you can check with a ruler is the whole
 # point of this example project, so it pays 5 -> 2.3 fps for it. See the README.

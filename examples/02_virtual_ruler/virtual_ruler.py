@@ -14,7 +14,7 @@ import numpy as np
 
 from depz_camera_sdk import DepthPipeline
 
-# The lightstereo of example project 1 is faster but jumpier: on a 25 cm target
+# The small lightstereo model is faster but jumpier: on a 25 cm target
 # its reading wobbles by ~4 cm from frame to frame, this one by ~0.3 cm. A ruler needs
 # the steady one, and pays 6 -> 2.5 fps for it. See the README.
 MODEL = ("lite-any-stereo", "v2-s-640x384")

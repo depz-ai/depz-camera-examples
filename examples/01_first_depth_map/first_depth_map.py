@@ -13,10 +13,6 @@ import numpy as np
 
 from depz_camera_sdk import DepthPipeline
 
-# The SDK's own default is the steadier lite-any-stereo. This example project
-# runs the fast, jumpy lightstereo on purpose: its frame-to-frame wobble is
-# what the nine-frame median below is there to tame. See the README.
-MODEL = ("lightstereo", "s-sceneflow-opt-256x512")
 MIN_M, MAX_M = 0.3, 6.0  # display range in metres — tweak for your scene
 SCALE = 2                # on-screen upscale of the (model-sized) frames
 SMOOTH_N = 9             # frames to median the cursor reading over (~0.3 s)
@@ -82,8 +78,9 @@ def main() -> None:
         nonlocal cursor
         cursor = (x, y)
 
-    print("Starting the pipeline (the first run downloads a ~13 MB model)...")
-    pipe = DepthPipeline(enable_rectified=True, inference=MODEL)
+    print("Starting the pipeline (the first run downloads a ~24 MB model)...")
+    # No inference= argument: the SDK's default model, lite-any-stereo.
+    pipe = DepthPipeline(enable_rectified=True)
     pipe.start()
     cv2.namedWindow("first_depth_map")
     cv2.setMouseCallback("first_depth_map", on_mouse)

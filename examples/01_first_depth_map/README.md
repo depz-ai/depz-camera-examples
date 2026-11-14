@@ -32,7 +32,7 @@ No calibration step: the camera is recognised by its serial number and its facto
 python first_depth_map.py
 ```
 
-The first run downloads a ~13 MB neural network; after that the pipeline starts in about 3 seconds. Move the mouse over either half of the window — the crosshair shows the same pixel in both, with its distance in metres. Press `s` to save a screenshot, `q` to quit.
+The first run downloads a ~24 MB neural network; after that the pipeline starts in about 3 seconds. Move the mouse over either half of the window — the crosshair shows the same pixel in both, with its distance in metres. Press `s` to save a screenshot, `q` to quit.
 
 ```python
     if cursor is not None:
