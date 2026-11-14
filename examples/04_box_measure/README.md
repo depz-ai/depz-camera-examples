@@ -21,7 +21,7 @@ Hardware used: [DEPZ Minima stereo camera](https://depz.ai/product/stereo-camera
 - The same packages as before:
 
 ```bash
-pip install -r requirements.txt   # depz-camera-sdk, openvino, numpy, opencv-python
+pip install -r requirements.txt   # depz-camera-sdk with its engines, numpy, opencv-python
 ```
 
 - A cardboard box and a tape measure.

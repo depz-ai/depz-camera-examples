@@ -12,13 +12,9 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from depz_camera_sdk import DepthPipeline, set_cache_dir
+from depz_camera_sdk import DepthPipeline
 
-# Models land in ./depz_sdk_cache relative to the *current* directory, so
-# running from a different folder re-downloads them. Pin one shared cache.
-set_cache_dir(Path.home() / ".cache" / "depz")
-
-# The default model is faster but its floor plane wobbles by 24 mm from frame
+# The lightstereo of example project 1 is faster but its floor plane wobbles by 24 mm from frame
 # to frame; this one wobbles by 8 mm and lands closer to the tape measure
 # (870 mm vs a taped 876). A height you can check with a ruler is the whole
 # point of this example project, so it pays 5 -> 2.3 fps for it. See the README.

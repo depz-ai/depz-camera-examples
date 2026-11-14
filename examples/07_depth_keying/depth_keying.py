@@ -13,11 +13,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from depz_camera_sdk import DepthPipeline, set_cache_dir
-
-# Models land in ./depz_sdk_cache relative to the *current* directory, so
-# running from a different folder re-downloads them. Pin one shared cache.
-set_cache_dir(Path.home() / ".cache" / "depz")
+from depz_camera_sdk import DepthPipeline
 
 MODEL = ("lightstereo", "s-sceneflow-opt-256x512")  # fast; keying wants frames, not millimetres
 CUT_M = 1.60           # start here; [ and ] move it

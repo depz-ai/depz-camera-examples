@@ -11,12 +11,12 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from depz_camera_sdk import DepthPipeline, set_cache_dir
+from depz_camera_sdk import DepthPipeline
 
-# Models land in ./depz_sdk_cache relative to the *current* directory, so
-# running from a different folder re-downloads them. Pin one shared cache.
-set_cache_dir(Path.home() / ".cache" / "depz")
-
+# The SDK's own default is the steadier lite-any-stereo. This example project
+# runs the fast, jumpy lightstereo on purpose: its frame-to-frame wobble is
+# what the nine-frame median below is there to tame. See the README.
+MODEL = ("lightstereo", "s-sceneflow-opt-256x512")
 MIN_M, MAX_M = 0.3, 6.0  # display range in metres — tweak for your scene
 SCALE = 2                # on-screen upscale of the (model-sized) frames
 SMOOTH_N = 9             # frames to median the cursor reading over (~0.3 s)
@@ -83,7 +83,7 @@ def main() -> None:
         cursor = (x, y)
 
     print("Starting the pipeline (the first run downloads a ~13 MB model)...")
-    pipe = DepthPipeline(enable_rectified=True)
+    pipe = DepthPipeline(enable_rectified=True, inference=MODEL)
     pipe.start()
     cv2.namedWindow("first_depth_map")
     cv2.setMouseCallback("first_depth_map", on_mouse)

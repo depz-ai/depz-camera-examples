@@ -34,7 +34,11 @@ rest of the series makes.
 
 - A DEPZ stereo depth camera, connected over USB. It is recognised
   automatically, and its calibration is fetched from the cloud by serial number.
-- Python 3.11 or newer.
+- Python 3.10 or newer.
+- Windows 10+ (x64), Linux (x86_64 or ARM64, glibc 2.28+) or macOS 14+ on
+  Apple Silicon. Intel Macs are not supported. The SDK itself also runs on
+  Windows 11 ARM64, but these examples do not: they open their windows through
+  OpenCV, and PyPI has no `opencv-python` wheel for that platform.
 - A tape measure. This is not a joke — it is half of every example project.
 
 ## Install

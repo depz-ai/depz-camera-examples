@@ -12,14 +12,10 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from depz_camera_sdk import DepthPipeline, set_cache_dir
+from depz_camera_sdk import DepthPipeline
 
-# Models land in ./depz_sdk_cache relative to the *current* directory, so
-# running from a different folder re-downloads them. Pin one shared cache.
-set_cache_dir(Path.home() / ".cache" / "depz")
-
-# The default model is faster but jumpier: on a 25 cm target its reading
-# wobbles by ~4 cm from frame to frame, this one by ~0.3 cm. A ruler needs
+# The lightstereo of example project 1 is faster but jumpier: on a 25 cm target
+# its reading wobbles by ~4 cm from frame to frame, this one by ~0.3 cm. A ruler needs
 # the steady one, and pays 6 -> 2.5 fps for it. See the README.
 MODEL = ("lite-any-stereo", "v2-s-640x384")
 MIN_M, MAX_M = 0.3, 6.0   # depth colouring range in metres

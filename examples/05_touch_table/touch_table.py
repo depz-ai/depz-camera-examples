@@ -15,11 +15,7 @@ import numpy as np
 import mediapipe as mp
 from mediapipe.tasks.python import vision
 
-from depz_camera_sdk import DepthPipeline, set_cache_dir
-
-# Models land in ./depz_sdk_cache relative to the *current* directory, so
-# running from a different folder re-downloads them. Pin one shared cache.
-set_cache_dir(Path.home() / ".cache" / "depz")
+from depz_camera_sdk import DepthPipeline
 
 MODEL = ("lite-any-stereo", "v2-s-480x288")   # 3.5 fps, 1 mm of noise up close
 HAND_TASK = Path.home() / ".cache" / "depz-examples" / "hand_landmarker.task"

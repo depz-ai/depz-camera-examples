@@ -1,15 +1,13 @@
-# DEPZ camera SDK, installed from its GitHub release like any user would.
-# When a new version ships, bump the number on every line below.
-depz-camera-sdk @ https://github.com/depz-ai/depz-cython-releases/releases/download/v0.2.7/depz_camera_sdk-0.2.7-cp311-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl ; sys_platform == "linux"
-depz-camera-sdk @ https://github.com/depz-ai/depz-cython-releases/releases/download/v0.2.7/depz_camera_sdk-0.2.7-cp311-abi3-win_amd64.whl ; sys_platform == "win32"
-depz-camera-sdk @ https://github.com/depz-ai/depz-cython-releases/releases/download/v0.2.7/depz_camera_sdk-0.2.7-cp311-abi3-macosx_10_9_universal2.whl ; sys_platform == "darwin"
+# DEPZ camera SDK from PyPI, with the runtimes for the depth network:
+#   openvino - Windows / Linux x86_64 (faster on Intel/AMD CPUs); skipped on other platforms
+#   cpu      - ONNX Runtime, on every platform (CoreML included on Apple Silicon)
+# For a GPU, swap "cpu" for one of the SDK's other extras (cuda12-bundled, dml, ...)
+# - see the SDK documentation at https://depz.ai/developers
+# When a new version ships, bump the number below.
+depz-camera-sdk[openvino,cpu]==0.2.9
 
 numpy
 opencv-python
-
-# Runtime for the depth network (one is enough; openvino is faster on Intel/AMD CPUs)
-openvino
-onnxruntime
 
 # Example project 5 (hand tracking): install MediaPipe SEPARATELY and with --no-deps. As a
 # dependency it drags in the next major of opencv-contrib-python, which overwrites
