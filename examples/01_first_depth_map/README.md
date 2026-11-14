@@ -18,7 +18,7 @@ Hardware used: [DEPZ Minima stereo camera](https://depz.ai/product/stereo-camera
 ## What you need
 
 - Any DEPZ stereo camera (Varius / Minima / Clarity) on USB
-- Python 3.11+ and three packages:
+- Python 3.10+ and three packages:
 
 ```bash
 pip install -r requirements.txt   # depz-camera-sdk, openvino, numpy, opencv-python

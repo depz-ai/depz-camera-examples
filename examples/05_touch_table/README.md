@@ -16,7 +16,7 @@ Hardware used: [DEPZ Minima stereo camera](https://depz.ai/product/stereo-camera
 ## What you need
 
 - Any DEPZ stereo camera on USB, looking down at a table from ~30 cm above it
-- Python 3.11+ and the usual packages, plus MediaPipe for hand tracking:
+- Python 3.10+ and the usual packages, plus MediaPipe for hand tracking:
 
 ```bash
 pip install -r requirements.txt
