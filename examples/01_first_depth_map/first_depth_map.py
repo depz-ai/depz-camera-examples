@@ -14,7 +14,7 @@ import numpy as np
 from depz_camera_sdk import DepthPipeline
 
 MIN_M, MAX_M = 0.3, 6.0  # display range in metres — tweak for your scene
-SCALE = 2                # on-screen upscale of the (model-sized) frames
+SCALE = 1                # on-screen upscale of the (model-sized) frames
 SMOOTH_N = 9             # frames to median the cursor reading over (~0.3 s)
 
 _recent: deque[float] = deque(maxlen=SMOOTH_N)
