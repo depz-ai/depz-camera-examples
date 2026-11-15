@@ -44,15 +44,29 @@ rest of the series makes.
 
 ## Install
 
+Linux / macOS:
+
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 ```
 
+Windows (PowerShell):
+
+```powershell
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+```
+
+`requirements.txt` installs the SDK with OpenVINO (Intel / AMD CPUs, Intel
+GPU and NPU) and the ONNX Runtime CPU engine. With an NVIDIA GPU, replace
+`cpu` there by `cuda12-bundled` (and add `tensorrt12` for TensorRT); the
+[install selector](https://depz.ai/developers/sdk) lists every option.
+
 Then run any example project directly:
 
 ```bash
-.venv/bin/python examples/01_first_depth_map/first_depth_map.py
+.venv/bin/python examples/01_first_depth_map/first_depth_map.py      # Windows: .venv\Scripts\python examples\01_first_depth_map\first_depth_map.py
 ```
 
 Example project 5 needs MediaPipe, which has to be installed separately — see
