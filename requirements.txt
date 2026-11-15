@@ -1,10 +1,11 @@
 # DEPZ camera SDK from PyPI, with the runtimes for the depth network:
 #   openvino - Windows / Linux x86_64 (faster on Intel/AMD CPUs); skipped on other platforms
 #   cpu      - ONNX Runtime, on every platform (CoreML included on Apple Silicon)
-# For a GPU, swap "cpu" for one of the SDK's other extras (cuda12-bundled, dml, ...)
+# For a GPU, swap "cpu" for one of the SDK's other extras (cuda12-bundled for NVIDIA,
+# dml for AMD on Windows, ...; add tensorrt12 next to cuda12-bundled for NVIDIA TensorRT)
 # - see the SDK documentation at https://depz.ai/developers
 # When a new version ships, bump the number below.
-depz-camera-sdk[openvino,cpu]==0.2.9
+depz-camera-sdk[openvino,cpu]==0.2.11
 
 numpy
 opencv-python
